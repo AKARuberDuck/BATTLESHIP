@@ -1,3 +1,4 @@
+/* === Fleetfire: Global Reset & Font === */
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
@@ -6,30 +7,39 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-h1, h2, h5 {
+h1, h2, h3, h5 {
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
+button {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* === Grid Layout === */
 .grid-area {
   display: grid;
   gap: 2px;
-  aspect-ratio: 1 / 1;
-  background-color: #e4e4e4;
   border-radius: 4px;
+  background-color: #e4e4e4;
+  aspect-ratio: 1 / 1;
   background-image:
     linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
   background-size: calc(100% / 10) calc(100% / 10);
+  position: relative;
 }
 
+/* === Grid Cell States === */
 .cell {
-  background-color: #fff;
+  background-color: #ffffff;
   border: 1px solid #ced4da;
   width: 100%;
   aspect-ratio: 1 / 1;
   transition: background-color 0.2s ease;
+  position: relative;
   cursor: pointer;
+  user-select: none;
 }
 
 .cell.hit {
@@ -47,6 +57,7 @@ h1, h2, h5 {
   border-color: #0a58ca;
 }
 
+/* === Font Awesome Icons in Cells === */
 .cell i {
   display: block;
   text-align: center;
@@ -58,19 +69,51 @@ h1, h2, h5 {
 .hit-icon { color: #dc3545; animation: pulseGlow 0.5s ease; }
 .miss-icon { color: #6c757d; }
 
-#achievement-toast {
-  font-weight: bold;
-  text-align: center;
-  animation: pulseGlow 0.5s ease-out;
+/* === Manual Ship Placement === */
+.cell.placing {
+  outline: 2px dashed #0d6efd;
+  background-color: rgba(13, 110, 253, 0.1);
 }
 
+.cell.highlight {
+  background-color: rgba(25, 135, 84, 0.3);
+}
+
+.cell.blocked {
+  background-color: rgba(220, 53, 69, 0.3);
+  cursor: not-allowed;
+}
+
+/* === Fog of War === */
+.fogged .cell:not(.hit):not(.miss):not(.revealed) {
+  background-color: #1c1c1c;
+  border-color: #333;
+}
+
+.dark-theme .fogged .cell:not(.hit):not(.miss):not(.revealed) {
+  background-color: #111;
+  border-color: #222;
+}
+
+/* === Power-Up Zones === */
+.cell.sonar-ping {
+  animation: sonarPulse 0.8s ease-in-out;
+  box-shadow: 0 0 8px 4px rgba(0, 255, 255, 0.4);
+}
+
+.cell.emp-zap {
+  background-color: #000000 !important;
+  animation: empFlash 0.5s ease;
+}
+
+/* === Theme: Dark Mode === */
 .dark-theme {
   background-color: #121212;
   color: #e9ecef;
 }
 
 .dark-theme .grid-area {
-  background-color: #222;
+  background-color: #1e1e1e;
 }
 
 .dark-theme .cell {
@@ -83,35 +126,51 @@ h1, h2, h5 {
 }
 
 .dark-theme .cell.miss {
-  background-color: #666 !important;
+  background-color: #555 !important;
 }
 
 .dark-theme .cell.ship {
   background-color: #375a7f;
 }
 
-/* Chart.js height fix */
+.dark-theme .cell i {
+  color: #e9ecef;
+}
+
+/* === Animations === */
+@keyframes pulseGlow {
+  0%   { opacity: 0; transform: scale(0.9); }
+  50%  { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+@keyframes sonarPulse {
+  0%   { box-shadow: 0 0 4px 1px rgba(0,255,255,0.2); }
+  50%  { box-shadow: 0 0 10px 5px rgba(0,255,255,0.6); }
+  100% { box-shadow: 0 0 4px 1px rgba(0,255,255,0.2); }
+}
+
+@keyframes empFlash {
+  0%   { background-color: #000; }
+  50%  { background-color: #555; }
+  100% { background-color: #000; }
+}
+
+/* === Achievement Toast === */
+#achievement-toast {
+  font-weight: bold;
+  text-align: center;
+  animation: pulseGlow 0.5s ease-out;
+}
+
+/* === Chart Layout === */
 canvas {
   max-width: 100%;
 }
 
-/* Pulse Animation */
-@keyframes pulseGlow {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-/* Buttons */
-button {
-  font-family: 'Orbitron', sans-serif;
+/* === Dragging Feedback === */
+.drag-preview {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.5;
 }
