@@ -74,4 +74,44 @@ h1, h2, h5 {
 }
 
 .dark-theme .cell {
-  background-color: #2a
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+.dark-theme .cell.hit {
+  background-color: #ff4e4e !important;
+}
+
+.dark-theme .cell.miss {
+  background-color: #666 !important;
+}
+
+.dark-theme .cell.ship {
+  background-color: #375a7f;
+}
+
+/* Chart.js height fix */
+canvas {
+  max-width: 100%;
+}
+
+/* Pulse Animation */
+@keyframes pulseGlow {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* Buttons */
+button {
+  font-family: 'Orbitron', sans-serif;
+}
