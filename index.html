@@ -3,167 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <title>Fleetfire: Divide & Conquer</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
- <link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#0d6efd" />
-  <!-- Bootstrap 5 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <!-- Chart.js, Anime.js, Lodash -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-  <!-- Game Styles -->
+  <title>Fleetfire: Classic Command</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="favicon.ico" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
-  <div class="container py-4">
-    <!-- 🚀 CAMPAIGN MODE SELECTOR -->
-    <div id="campaign-screen" class="text-center mb-5">
-      <h2 class="mb-3">Fleetfire: Divide & Conquer</h2>
-      <p class="lead">Choose a mission to begin your fleet campaign</p>
-      <div class="row justify-content-center">
-        <div class="col-md-4">
-          <button class="btn btn-outline-primary w-100 mb-2 campaign-option" data-mission="harbor">Operation: Iron Harbor</button>
-          <button class="btn btn-outline-warning w-100 mb-2 campaign-option" data-mission="abyss">Operation: Sunken Abyss</button>
-          <button class="btn btn-outline-danger w-100 mb-2 campaign-option" data-mission="wrath">Operation: AI Wrath</button>
-        </div>
-      </div>
+
+  <div class="container py-4 text-center">
+    <h1>🚢 Fleetfire: Classic Command</h1>
+    <div id="user-auth" class="mb-3">
+      <input id="username" placeholder="Username" />
+      <input id="password" type="password" placeholder="Password" />
+      <button id="login" class="btn btn-success">Login</button>
+      <button id="register" class="btn btn-outline-primary">Register</button>
     </div>
 
-    <!-- 👥 PLAYER SETUP -->
-    <div id="user-setup" class="text-center mb-5" style="display:none;">
-      <h3 class="mb-3">Commander Credentials</h3>
-      <input type="text" id="player1-name" class="form-control mb-2" placeholder="Player 1 Name"/>
-      <input type="text" id="player2-name" class="form-control mb-2" placeholder="Player 2 Name"/>
-      <select id="ai-personality" class="form-select my-2 w-auto mx-auto">
-        <option value="balanced">AI Personality: Balanced</option>
-        <option value="aggressive">Aggressive</option>
-        <option value="evasive">Evasive</option>
-        <option value="calculated">Calculated</option>
-      </select>
-      <button id="confirm-names" class="btn btn-success">Deploy Team</button>
-    </div>
-
-    <!-- 🎮 GAME UI -->
-    <div id="game-ui" style="display: none;">
-      <header class="text-center mb-4">
-        <h1 class="display-5">Fleetfire: Divide & Conquer</h1>
-        <p class="lead"><span id="mission-title"></span></p>
-        <div class="d-flex justify-content-end">
-          <button id="theme-toggle" class="btn btn-sm btn-outline-secondary me-2">
-            <i class="fas fa-circle-half-stroke"></i> Theme
-          </button>
+    <div id="battle-area" class="d-none">
+      <p id="turn-info">Place your ships</p>
+      <div class="grid-wrap">
+        <div>
+          <h4>You</h4>
+          <div id="player-grid" class="grid"></div>
         </div>
-      </header>
-
-      <!-- ⚙️ SETTINGS -->
-      <section class="card p-3 mb-4">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <label for="grid-size">Grid Size</label>
-            <select id="grid-size" class="form-select w-auto d-inline-block ms-2">
-              <option value="10">10x10</option>
-              <option value="12">12x12</option>
-              <option value="14">14x14</option>
-            </select>
-          </div>
-          <div class="col-md-6 text-end">
-            <button id="randomize-ships" class="btn btn-primary">Randomize Fleet</button>
-            <button id="place-manually" class="btn btn-outline-secondary ms-2">Place Ships Manually</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- 🕹️ PLAYER GRIDS -->
-      <div class="row g-3 mb-3">
-        <div class="col-md-6">
-          <h5 class="text-center">Commander <span id="name-p1"></span></h5>
-          <div id="grid-p1" class="grid-area border"></div>
-        </div>
-        <div class="col-md-6">
-          <h5 class="text-center">Commander <span id="name-p2"></span></h5>
-          <div id="grid-p2" class="grid-area border"></div>
+        <div>
+          <h4>Enemy</h4>
+          <div id="ai-grid" class="grid"></div>
         </div>
       </div>
-
-      <!-- 🤖 ENEMY GRIDS -->
-      <div class="row g-3">
-        <div class="col-md-6">
-          <h5 class="text-center">AI Alpha</h5>
-          <div id="grid-ai1" class="grid-area border fogged"></div>
-        </div>
-        <div class="col-md-6">
-          <h5 class="text-center">AI Omega</h5>
-          <div id="grid-ai2" class="grid-area border fogged"></div>
-        </div>
-      </div>
-
-      <!-- ⚡ POWER-UPS -->
-      <div class="text-center mt-3">
-        <button id="use-sonar" class="btn btn-info me-2"><i class="fas fa-radar"></i> Sonar Pulse</button>
-        <button id="use-emp" class="btn btn-dark"><i class="fas fa-bolt"></i> EMP Blast</button>
-      </div>
-
-      <!-- 🎯 CONTROL BUTTONS -->
-      <div class="text-center my-4">
-        <button id="start-game" class="btn btn-success">Start Mission</button>
-        <button id="reset-game" class="btn btn-danger ms-2">Reset</button>
-      </div>
-
-      <!-- 📝 LOG & STATS -->
-      <section class="mt-4">
-        <h5>Battle Log</h5>
-        <ul id="battle-log" class="list-group" style="max-height: 200px; overflow-y: auto;"></ul>
-      </section>
-
-      <section class="mt-4">
-        <h5>Achievements</h5>
-        <div id="achievement-toast" class="alert alert-info d-none" role="alert"></div>
-      </section>
-
-      <section class="mt-4">
-        <h5>Team Stats</h5>
-        <canvas id="team-stats-chart" height="100"></canvas>
-      </section>
-    </div>
-
-    <!-- 🧨 ENDGAME MODAL -->
-    <div class="modal fade" id="endgameModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center">
-          <div class="modal-header">
-            <h5 class="modal-title">Mission Debrief</h5>
-          </div>
-          <div class="modal-body">
-            <p id="endgame-message"></p>
-            <button id="replay-button" class="btn btn-primary">Play Again</button>
-          </div>
-        </div>
+      <div class="my-2">
+        <button id="start-game" class="btn btn-primary d-none">Start Battle</button>
+        <button id="reset-game" class="btn btn-outline-danger">Reset</button>
+        <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#statsModal">Stats</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#logModal">Log</button>
       </div>
     </div>
-
-    <!-- 📦 BOOTSTRAP + GAME SCRIPT -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
-
-    <!-- 🖥️ FULLSCREEN HANDLER -->
-    <script>
-      document.addEventListener('keydown', (e) => {
-        if (e.key.toLowerCase() === 'f') {
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-          } else {
-            document.exitFullscreen();
-          }
-        }
-      });
-    </script>
   </div>
+
+  <!-- 📊 Stats Modal -->
+  <div class="modal fade" id="statsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header">
+          <h5 class="modal-title">📈 Fleet Performance</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Games: <span id="stat-games">0</span></p>
+          <p>Wins: <span id="stat-wins">0</span></p>
+          <p>Losses: <span id="stat-losses">0</span></p>
+          <p>Accuracy: <span id="stat-accuracy">0%</span></p>
+          <p>Rank: <span id="stat-rank">Cadet</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📘 Battle Log Modal -->
+  <div class="modal fade" id="logModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">📜 Shot Log</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <ul id="shot-log" class="list-group"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
