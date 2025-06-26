@@ -5,35 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Battleship: Divide & Conquer</title>
 
-  <!-- Bootstrap for Responsive UI -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <!-- Bootstrap UI -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
 
-  <!-- Anime.js for Animations -->
+  <!-- Anime.js for visual effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
-  <!-- Chart.js for Stats -->
+  <!-- Chart.js for team stats -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Lodash (Optional Utilities) -->
+  <!-- Lodash for utilities (optional) -->
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container py-4">
+    <!-- Player Name Setup -->
     <div id="user-setup" class="text-center mb-5">
       <h2 class="mb-3">Commander Credentials</h2>
-      <input type="text" id="player1-name" class="form-control mb-2" placeholder="Player 1 Username">
-      <input type="text" id="player2-name" class="form-control mb-2" placeholder="Player 2 Username">
+      <input type="text" id="player1-name" class="form-control mb-2" placeholder="Player 1 Username" />
+      <input type="text" id="player2-name" class="form-control mb-2" placeholder="Player 2 Username" />
       <button id="enter-game" class="btn btn-primary">Enter Warzone</button>
     </div>
+
+    <!-- Main Game UI -->
     <div id="game-ui" style="display: none;">
       <header class="text-center mb-4">
         <h1 class="display-5">BATTLESHIP: Divide & Conquer</h1>
@@ -44,10 +47,12 @@
           </button>
         </div>
       </header>
+
+      <!-- Settings -->
       <section class="card p-3 mb-4">
         <h5>Mission Settings</h5>
         <div class="form-check form-switch mb-2">
-          <input class="form-check-input" type="checkbox" id="adaptive-ai">
+          <input class="form-check-input" type="checkbox" id="adaptive-ai" />
           <label class="form-check-label" for="adaptive-ai">Enable Adaptive AI Enemies</label>
         </div>
         <div>
@@ -60,6 +65,8 @@
         </div>
         <button id="randomize-ships" class="btn btn-primary mt-3">Randomize Fleet</button>
       </section>
+
+      <!-- Player Grids -->
       <div class="row g-3 mb-4">
         <div class="col-md-6">
           <h5 class="text-center">Commander <span id="name-p1"></span></h5>
@@ -70,6 +77,8 @@
           <div id="grid-p2" class="grid-area border border-dark"></div>
         </div>
       </div>
+
+      <!-- AI Opponent Grids -->
       <div class="row g-3 mb-4">
         <div class="col-md-6">
           <h5 class="text-center">AI Opponent Alpha</h5>
@@ -80,10 +89,14 @@
           <div id="grid-ai2" class="grid-area border border-secondary"></div>
         </div>
       </div>
+
+      <!-- Game Controls -->
       <div class="text-center my-3">
         <button id="start-game" class="btn btn-success">Start Mission</button>
         <button id="reset-game" class="btn btn-danger ms-2">Reset</button>
       </div>
+
+      <!-- Log & Stats -->
       <section class="mt-4">
         <h5>Battle Log</h5>
         <ul id="battle-log" class="list-group" style="max-height: 200px; overflow-y: auto;"></ul>
@@ -99,6 +112,8 @@
         <canvas id="team-stats-chart" height="100"></canvas>
       </section>
     </div>
+
+    <!-- Endgame Modal -->
     <div class="modal fade" id="endgameModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
@@ -112,13 +127,10 @@
         </div>
       </div>
     </div>
-    <!-- Bootstrap Scripts -->
+
+    <!-- Bootstrap Bundle + Main Script + Fullscreen Toggle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom Game Script -->
     <script src="script.js"></script>
-
-    <!-- Fullscreen Toggle Shortcut -->
     <script>
       document.addEventListener('keydown', (e) => {
         if (e.key.toLowerCase() === 'f') {
