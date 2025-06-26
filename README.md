@@ -35,9 +35,9 @@ A 2-player cooperative battleship campaign fought against dynamic AI opponents. 
 Built with:
 
 - HTML5, CSS3, JavaScript (vanilla)
-- [Bootstrap 5](https://getbootstrap.com)` (layout)
-- [Anime.js](https://animejs.com)` (animations)
-- `[Font Awesome]`(https://fontawesome.com) (icons)
+- [Bootstrap 5](https://getbootstrap.com) (layout)
+- [Anime.js](https://animejs.com) (animations)
+- [Font Awesome](https://fontawesome.com) (icons)
 - [Chart.js](https://www.chartjs.org/) (stats)
 - localStorage (team memory)
 
