@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Battleship: Divide & Conquer</title>
 
+  <!-- Bootstrap for Responsive UI -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+  <!-- Anime.js for Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+  <!-- Chart.js for Stats -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Lodash (Optional Utilities) -->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container py-4">
+    <div id="user-setup" class="text-center mb-5">
+      <h2 class="mb-3">Commander Credentials</h2>
+      <input type="text" id="player1-name" class="form-control mb-2" placeholder="Player 1 Username">
+      <input type="text" id="player2-name" class="form-control mb-2" placeholder="Player 2 Username">
+      <button id="enter-game" class="btn btn-primary">Enter Warzone</button>
+    </div>
+    <div id="game-ui" style="display: none;">
+      <header class="text-center mb-4">
+        <h1 class="display-5">BATTLESHIP: Divide & Conquer</h1>
+        <p class="lead">Coordinate, Strike, and Overcome</p>
+        <div class="d-flex justify-content-end">
+          <button id="theme-toggle" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-circle-half-stroke"></i> Theme
+          </button>
+        </div>
+      </header>
+      <section class="card p-3 mb-4">
+        <h5>Mission Settings</h5>
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" id="adaptive-ai">
+          <label class="form-check-label" for="adaptive-ai">Enable Adaptive AI Enemies</label>
+        </div>
+        <div>
+          <label for="grid-size" class="form-label">Grid Size</label>
+          <select id="grid-size" class="form-select w-auto d-inline-block">
+            <option value="10">10x10</option>
+            <option value="12">12x12</option>
+            <option value="14">14x14</option>
+          </select>
+        </div>
+        <button id="randomize-ships" class="btn btn-primary mt-3">Randomize Fleet</button>
+      </section>
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <h5 class="text-center">Commander <span id="name-p1"></span></h5>
+          <div id="grid-p1" class="grid-area border border-dark"></div>
+        </div>
+        <div class="col-md-6">
+          <h5 class="text-center">Commander <span id="name-p2"></span></h5>
+          <div id="grid-p2" class="grid-area border border-dark"></div>
+        </div>
+      </div>
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <h5 class="text-center">AI Opponent Alpha</h5>
+          <div id="grid-ai1" class="grid-area border border-secondary"></div>
+        </div>
+        <div class="col-md-6">
+          <h5 class="text-center">AI Opponent Omega</h5>
+          <div id="grid-ai2" class="grid-area border border-secondary"></div>
+        </div>
+      </div>
+      <div class="text-center my-3">
+        <button id="start-game" class="btn btn-success">Start Mission</button>
+        <button id="reset-game" class="btn btn-danger ms-2">Reset</button>
+      </div>
+      <section class="mt-4">
+        <h5>Battle Log</h5>
+        <ul id="battle-log" class="list-group" style="max-height: 200px; overflow-y: auto;"></ul>
+      </section>
+
+      <section class="mt-4">
+        <h5>Achievements</h5>
+        <div id="achievement-toast" class="alert alert-info d-none" role="alert"></div>
+      </section>
+
+      <section class="mt-4">
+        <h5>Team Stats</h5>
+        <canvas id="team-stats-chart" height="100"></canvas>
+      </section>
+    </div>
+    <div class="modal fade" id="endgameModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+          <div class="modal-header">
+            <h5 class="modal-title">Mission Debriefing</h5>
+          </div>
+          <div class="modal-body">
+            <p id="endgame-message" class="mb-3"></p>
+            <button id="replay-button" class="btn btn-primary">Play Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom Game Script -->
+    <script src="script.js"></script>
+
+    <!-- Fullscreen Toggle Shortcut -->
+    <script>
+      document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'f') {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+          } else {
+            document.exitFullscreen();
+          }
+        }
+      });
+    </script>
+  </div>
+</body>
+</html>
