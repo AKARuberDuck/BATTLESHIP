@@ -2,8 +2,8 @@
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
-  background-color: #f8f9fa;
-  color: #212529;
+  background-color: #111;
+  color: #eee;
   transition: background-color 0.3s, color 0.3s;
 }
 
