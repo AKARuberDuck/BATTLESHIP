@@ -34,18 +34,21 @@ A 2-player cooperative battleship campaign fought against dynamic AI opponents. 
 
 Built with:
 
-- HTML5, CSS3, JavaScript (vanilla)
-- [Bootstrap 5](https://getbootstrap.com) (layout)
-- [Anime.js](https://animejs.com) (animations)
-- [Font Awesome](https://fontawesome.com) (icons)
-- [Chart.js](https://www.chartjs.org/) (stats)
+- `HTML5`, `CSS3`, `JavaScript (vanilla)`
+- `[Bootstrap 5](https://getbootstrap.com)` (layout)
+- `[Anime.js](https://animejs.com)` (animations)
+- `[Font Awesome](https://fontawesome.com)` (icons)
+- `[Chart.js](https://www.chartjs.org/)` (stats)
 - `localStorage` (team memory)
 
 ## 📁 File Structure
 
 BATTLESHIP/ 
+
 ├── index.html    ### Game UI 
+
 ├── styles.css    ### Visual themes and effects 
+
 ├── script.js    ### All game logic, AI, fog, power-ups, etc.
 
 
@@ -64,3 +67,5 @@ Campaign command structure and AI enhancement by Microsoft Copilot
 ---
 
 > *“Divide. Strategize. Conquer.”* — Fleetfire Command Protocol
+
+---
