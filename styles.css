@@ -1,1 +1,77 @@
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  transition: background-color 0.3s, color 0.3s;
+}
 
+h1, h2, h5 {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.grid-area {
+  display: grid;
+  gap: 2px;
+  aspect-ratio: 1 / 1;
+  background-color: #e4e4e4;
+  border-radius: 4px;
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: calc(100% / 10) calc(100% / 10);
+}
+
+.cell {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.cell.hit {
+  background-color: #dc3545 !important;
+  border-color: #a71d2a;
+}
+
+.cell.miss {
+  background-color: #6c757d !important;
+  border-color: #495057;
+}
+
+.cell.ship {
+  background-color: #0d6efd;
+  border-color: #0a58ca;
+}
+
+.cell i {
+  display: block;
+  text-align: center;
+  font-size: 1.3em;
+  pointer-events: none;
+}
+
+.ship-icon { color: #0d6efd; }
+.hit-icon { color: #dc3545; animation: pulseGlow 0.5s ease; }
+.miss-icon { color: #6c757d; }
+
+#achievement-toast {
+  font-weight: bold;
+  text-align: center;
+  animation: pulseGlow 0.5s ease-out;
+}
+
+.dark-theme {
+  background-color: #121212;
+  color: #e9ecef;
+}
+
+.dark-theme .grid-area {
+  background-color: #222;
+}
+
+.dark-theme .cell {
+  background-color: #2a
